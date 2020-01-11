@@ -7,6 +7,7 @@ import io.luna.game.model.mob.Player
 import io.luna.game.model.mob.Skill
 import io.luna.game.model.mob.block.UpdateFlagSet.UpdateFlag
 import io.luna.net.msg.out.SkillUpdateMessageWriter
+import io.luna.net.msg.out.SoundMessageWriter
 
 /**
  * Graphic played when a player advances a level.
@@ -52,8 +53,12 @@ fun advanceLevel(plr: Player, skillId: Int, oldLevel: Int) {
         }
 
         val levelUpData = levelUpTable[skillId]
-        plr.interfaces.open(LevelUpInterface(skillId, newLevel, levelUpData))
+        if(newLevel >=30)
+            plr.interfaces.open(LevelUpInterface(skillId, newLevel, levelUpData))
+        else
+            plr.sendMessage( "Congratulations, you just advanced ${addArticle(skill.name)} level! You are now level " + skill.level + "." )
         plr.graphic(fireworksGraphic)
+        plr.queue(SoundMessageWriter(51, 0, 0))
 
         if (Skill.isCombatSkill(skillId)) {
             plr.skills.resetCombatLevel()

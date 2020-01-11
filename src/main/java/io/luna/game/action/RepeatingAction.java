@@ -151,7 +151,7 @@ public abstract class RepeatingAction<T extends Mob> extends Action<T> {
     /**
      * @return {@code true} if this Action has been interrupted, {@code false} otherwise.
      */
-    final boolean isInterrupted() {
+    public final boolean isInterrupted() {
         return worker.getState() == TaskState.CANCELLED;
     }
 }

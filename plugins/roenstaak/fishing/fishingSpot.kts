@@ -34,16 +34,16 @@ cmd("test", RIGHTS_DEV) {
 
 
 
-/*
+
 
 object1(1530	) {
     remove(plr, gameObject)
-  *//*  gameObject.hide()
+  //*  gameObject.hide()
 
 
 
     world.objects.unregister(gameObject)
-    world.removeObject(gameObject)*//*
+    world.removeObject(gameObject)
     plr.giveItem(
             Item(303, 1))//small fishing net)
 
@@ -118,7 +118,7 @@ object1(9584) {
 //TODO object3 is broken?
 object3(1739) {
     plr.teleport(plr.position.translate(0, 0, -1))
-}*/
+}
 
 
 fun remove(plr : Player, obj : GameObject) {
