@@ -2,6 +2,7 @@
 import api.predef.*
 import io.luna.game.event.impl.LoginEvent
 import io.luna.game.event.impl.ServerLaunchEvent
+import io.luna.game.model.Area
 import io.luna.game.model.item.IndexedItem
 import io.luna.game.model.item.Item
 import io.luna.game.model.mob.WalkingQueue
@@ -13,8 +14,14 @@ import java.awt.Color
 import java.util.function.Consumer
 
 
+val area = Area(3075, 3259, 3079, 3261);
+
 on(ServerLaunchEvent::class) {
-    world.addNpc(1464, 3077, 3260, 0)
+    val npc = world.addNpc(1464, 3077, 3260, 0)
+
+    world.schedule( 5){
+        npc.walking.walk(npc.position, area.random())
+    }
 }
 
 npc1(1464) {
@@ -37,7 +44,6 @@ npc1(1464) {
 
     } else plr.newDialogue().npc(1464, "Help!").player("Waddup?").npc(1464, "Owaaooo Bananana")
             .player("Sure!", "I will get you a banana...").give(Item(4012, 1)).open()
-
 }
 
 
