@@ -53,5 +53,4 @@ enum class Tree(val level: Int, val exp: Double, val logsId: Int, val respawnTic
          */
         val VALUES = values().associateBy { it.logsId }
     }
-
 }

@@ -3,7 +3,6 @@ package world.player.skill.cooking
 import api.predef.*
 import io.luna.game.action.Action
 import io.luna.game.action.InventoryAction
-import io.luna.game.model.`object`.GameObject
 import io.luna.game.model.item.Item
 import io.luna.game.model.mob.Animation
 import io.luna.game.model.mob.Player
@@ -44,7 +43,6 @@ class CookingAction(plr: Player,
         }
 
     override fun execute() {
-        val cooked = food.cooked
         mob.animation(if (usingFire) FIRE_ANIMATION else RANGE_ANIMATION)
 
         if (experience != null) {

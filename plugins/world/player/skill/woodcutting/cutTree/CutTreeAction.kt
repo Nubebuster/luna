@@ -9,7 +9,6 @@ import io.luna.game.model.`object`.ObjectType
 import io.luna.game.model.item.Item
 import io.luna.game.model.mob.Animation
 import io.luna.game.model.mob.Player
-import io.luna.util.ExecutorUtils
 import world.player.skill.woodcutting.searchNest.Nest
 
 /**
@@ -44,7 +43,6 @@ class CutTreeAction(plr: Player, val axe: Axe, val tree: Tree, val treeObj: Game
             if (start) {
                 mob.sendMessage("You swing your axe at the tree...")
                 delay = getWoodcuttingDelay()
-
             }
             true
         }
@@ -59,7 +57,6 @@ class CutTreeAction(plr: Player, val axe: Axe, val tree: Tree, val treeObj: Game
             val name = itemDef(tree.logsId).name
             mob.sendMessage("You get some ${name.toLowerCase()}.")
             mob.woodcutting.addExperience(tree.exp)
-            mob.animation(axe.animation)
         }
 
         if (tree.depletionChance == 1 || rand().nextInt(tree.depletionChance) == 0) {
@@ -105,15 +102,6 @@ class CutTreeAction(plr: Player, val axe: Axe, val tree: Tree, val treeObj: Game
         if (baseTime > BASE_CUT_RATE) {
             baseTime = BASE_CUT_RATE
         }
-
-        for(i in 1..(baseTime / 5 ))
-            ExecutorUtils.threadFactory("WoodcutTimer").newThread(Runnable {
-                Thread.sleep( 3500L * (i))
-                if(!super.isInterrupted())
-                    mob.animation(axe.animation)
-
-            }).start()
-
         return baseTime
     }
 }

@@ -4,7 +4,6 @@ import api.predef.*
 import io.luna.game.event.impl.ObjectClickEvent.ObjectFirstClickEvent
 import io.luna.game.model.`object`.GameObject
 import io.luna.game.model.mob.Player
-import io.luna.util.ExecutorUtils
 
 /**
  * Determines which axe the player has and cuts the [treeObj] if they have one.
@@ -23,7 +22,4 @@ on(ObjectFirstClickEvent::class) {
     if (treeStump != null) {
         cutTree(plr, treeStump.tree, gameObject)
     }
-
 }
-
-

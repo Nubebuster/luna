@@ -6,7 +6,6 @@ import io.luna.game.action.InventoryAction
 import io.luna.game.event.impl.NpcClickEvent
 import io.luna.game.model.item.Item
 import io.luna.game.model.mob.Animation
-import io.luna.util.ExecutorUtils
 
 /**
  * An [InventoryAction] implementation that will catch fish.
@@ -20,12 +19,12 @@ class FishAction(private val msg: NpcClickEvent,
         /**
          * Between 10 and 100 fishing actions for the 'random stop' effect.
          */
-        val RANDOM_FAIL_RATE = 10..100
+        val RANDOM_FAIL_RATE = 10..50
 
         /**
          * Ensures that fishing does not happen too fast. The minimum tick factor one can achieve with any tool.
          */
-        const val MINIMUM_TICK_FACTOR = 8
+        const val MINIMUM_TICK_FACTOR = 5
     }
 
     /**
@@ -45,7 +44,7 @@ class FishAction(private val msg: NpcClickEvent,
                 mob.sendMessage("You need a Fishing level of ${tool.level} to fish here.")
                 false
             }
-            tool.bait != null && !mob.inventory.contains(tool.bait) -> {
+            tool.bait != null && mob.inventory.contains(tool.bait) -> {
                 // Check if we have required bait.
                 mob.sendMessage("You do not have the bait required to fish here.")
                 false
@@ -78,15 +77,6 @@ class FishAction(private val msg: NpcClickEvent,
 
         // Reset fishing delay.
         delay = getFishingDelay()
-
-
-        if(delay/4 > 0)
-         for(i in 1..(delay / 4 ))
-           ExecutorUtils.threadFactory("FishingTimer").newThread(Runnable {
-               Thread.sleep( 4000L * (i))
-               if(!super.isInterrupted())
-                   mob.animation(Animation(tool.animation))
-           }).start()
     }
 
     override fun add(): List<Item?> {
@@ -128,9 +118,6 @@ class FishAction(private val msg: NpcClickEvent,
         if (ticksFactor < MINIMUM_TICK_FACTOR) {
             ticksFactor = MINIMUM_TICK_FACTOR
         }
-
-
-
-        return rand(4, ticksFactor * 3)
+        return rand(1, ticksFactor)
     }
 }
