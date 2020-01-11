@@ -5,6 +5,8 @@ import io.luna.game.event.impl.LoginEvent
 import io.luna.game.model.item.Item
 import io.luna.game.model.mob.Player
 import io.luna.game.model.mob.PlayerAppearance.DesignPlayerInterface
+import io.luna.net.msg.out.MusicMessageWriter
+
 
 /**
  * Inventory starter items.
@@ -47,3 +49,8 @@ fun firstLogin(plr: Player) {
 on(LoginEvent::class)
     .filter { plr.firstLogin }
     .then { firstLogin(plr) }
+
+/*
+on(LoginEvent::class) {
+    plr.queue(MusicMessageWriter(2))
+}*/

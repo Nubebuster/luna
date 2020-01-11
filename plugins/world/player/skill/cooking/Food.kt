@@ -4,7 +4,7 @@ import api.predef.*
 import io.luna.game.model.item.Item
 
 /**
- * An enum representing food that can be cooked.e
+ * An enum representing food that can be cooked.
  */
 enum class Food(val raw: Int,
                 val cooked: Int,

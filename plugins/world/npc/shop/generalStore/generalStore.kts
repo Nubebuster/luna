@@ -21,6 +21,7 @@ shop("General Store") {
         "Bowl" x 15
         "Anti-dragon shield" x 50
         "Lobster" x 150
+        "Fishing bait" x 1000
     }
 
     open {
@@ -34,7 +35,8 @@ shop("General Store") {
 npc1(520) {
     plr.newDialogue()
         .npc(npc.id, "Hi, here's what I have in stock for today!")
-        .then { it.interfaces.openShop("General Store") }
+        .then { it.interfaces.openShop("General Store")
+        }
 }
 
 /**

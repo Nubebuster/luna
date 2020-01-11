@@ -1,0 +1,7 @@
+[metadata]
+name = "Teleport book"
+description = "A plugin that allows teleports to areas."
+version = "1.0"
+authors = [
+  "NubeBuster"
+]

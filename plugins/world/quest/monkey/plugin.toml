@@ -1,0 +1,7 @@
+[metadata]
+name = "Monkey quest"
+description = "A plugin that enables 'Man' NPCs to give free gifts of 2M coins."
+version = "your.luna.version"
+authors = [
+  "Roenstaak"
+]

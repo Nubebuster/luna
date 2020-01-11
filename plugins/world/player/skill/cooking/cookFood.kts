@@ -2,18 +2,20 @@ package world.player.skill.cooking
 
 import api.predef.*
 import io.luna.game.event.impl.ItemOnObjectEvent
+import io.luna.game.event.impl.LoginEvent
 import io.luna.game.model.mob.Player
 import io.luna.game.model.mob.inter.AmountInputInterface
+import java.lang.Exception
 
 /**
  * The fire objects.
  */
-val fires = setOf(2732)
+val fires = setOf(2732, 5249)
 
 /**
  * The range objects.
  */
-val ranges = setOf(114, 2728, 4172, 8750, 2732, 2728, 2729, 2730, 2731, 2859, 3039)
+val ranges = setOf(114, 2728, 4172, 8750, 2732, 2728, 2729, 2730, 2731, 2859, 3039, 9682, 9683)
 
 /**
  * Opens the [CookingInterface] if the food is non-null.

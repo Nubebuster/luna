@@ -6,15 +6,13 @@ import io.luna.net.msg.out.WidgetItemModelMessageWriter
 import world.player.skill.crafting.hideTanning.Hide.*
 
 /**
- * The interface opened when tanning hides.
+ *
+ *
+ * @author lare96 <http://github.com/lare96>
  */
 class TanInterface : StandardInterface(14670) {
 
     companion object {
-
-        /**
-         * A list of hides displayed on the interface.
-         */
         val HIDES = listOf(
                 SOFT_LEATHER,
                 HARD_LEATHER,
