@@ -10,6 +10,7 @@ import io.luna.game.model.item.Item
 import io.luna.game.model.mob.Animation
 import io.luna.game.model.mob.Player
 import io.luna.net.msg.GameMessageWriter
+import io.luna.net.msg.out.SoundMessageWriter
 import io.luna.util.ExecutorUtils
 import world.player.skill.woodcutting.searchNest.Nest
 import java.util.*
@@ -61,7 +62,9 @@ class CutTreeAction(plr: Player, val axe: Axe, val tree: Tree, val treeObj: Game
             val name = itemDef(tree.logsId).name
             mob.sendMessage("You get some ${name.toLowerCase()}.")
             mob.woodcutting.addExperience(tree.exp)
-            mob.animation(axe.animation)
+            //mob.animation(axe.animation) moved to getWoodCuttingDelay()
+            mob.queue(SoundMessageWriter(2606))
+            //mob.queue(SoundMessageWriter(2582, 1, 500))
         }
 
         if (tree.depletionChance == 1 || rand().nextInt(tree.depletionChance) == 0) {
