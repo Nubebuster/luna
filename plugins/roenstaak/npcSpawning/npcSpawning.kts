@@ -30,10 +30,21 @@ fun addSpots() = npcSpawns.forEach {
 
 on(ServerLaunchEvent::class) {
 
+    val wizards = Area(3219, 3362, 3236, 3377)
     for (i in 1..2) {
         for (id in 3242..3245)
-            npcSpawns.add(NPCSpawn(id, Area(3219, 3362, 3236, 3377).random(),
-                    Area(3219, 3362, 3236, 3377)))
+            npcSpawns.add(NPCSpawn(id, wizards.random(),
+                    wizards))
+    }
+    val cows =  Area(3253, 3255, 3265, 3296)
+    for(i in 1..12) {
+        npcSpawns.add(NPCSpawn(81, cows.random(),
+                cows))
+    }
+    val cows2 = Area(3242, 3283, 3255, 3298)
+    for(i in 1..8) {
+        npcSpawns.add(NPCSpawn(81, cows2.random(),
+                cows2))
     }
 
     if (npcSpawns.isNotEmpty()) {

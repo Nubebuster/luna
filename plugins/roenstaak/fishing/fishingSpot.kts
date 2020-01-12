@@ -79,6 +79,12 @@ object1(2882) {
 object1(2883) {
     remove(plr, gameObject)
 }
+object1(1553) {
+    remove(plr, gameObject)
+}
+object1(1551) {
+    remove(plr, gameObject)
+}
 
 object1(59) {
     remove(plr, gameObject)
