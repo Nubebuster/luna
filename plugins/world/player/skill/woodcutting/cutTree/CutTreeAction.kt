@@ -9,8 +9,10 @@ import io.luna.game.model.`object`.ObjectType
 import io.luna.game.model.item.Item
 import io.luna.game.model.mob.Animation
 import io.luna.game.model.mob.Player
+import io.luna.net.msg.GameMessageWriter
 import io.luna.util.ExecutorUtils
 import world.player.skill.woodcutting.searchNest.Nest
+import java.util.*
 
 /**
  * An [InventoryAction] that will enable the cutting of trees.
@@ -106,14 +108,14 @@ class CutTreeAction(plr: Player, val axe: Axe, val tree: Tree, val treeObj: Game
             baseTime = BASE_CUT_RATE
         }
 
-        for(i in 1..(baseTime / 5 ))
-            ExecutorUtils.threadFactory("WoodcutTimer").newThread(Runnable {
-                Thread.sleep( 3500L * (i))
-                if(!super.isInterrupted())
-                    mob.animation(axe.animation)
-
-            }).start()
-
+        val end = System.currentTimeMillis() + baseTime * 1000
+        world.schedule(6) {
+            if(super.isInterrupted() || System.currentTimeMillis() > end) {
+                it.cancel()
+            } else {
+                mob.animation(axe.animation)
+            }
+        }
         return baseTime
     }
 }
