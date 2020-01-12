@@ -16,7 +16,7 @@ class LevelUpInterface(val skill: Int,
         val skillName = Skill.getName(skill)
         val lvlUpMessage = "Congratulations, you just advanced ${addArticle(skillName)} level!"
 
-        player.sendMessage(lvlUpMessage)
+        player.sendMessage( "Congratulations, you just advanced ${addArticle(skillName)} level! You are now level " + newLevel + "." )
         player.sendText(lvlUpMessage, data.firstLine)
         player.sendText("Your $skillName level is now $newLevel.", data.secondLine)
     }
