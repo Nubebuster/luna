@@ -2,7 +2,7 @@
 
 runtimeMode = "DEVELOPMENT"
 startingPosition = { x = 3093, y = 3244 }
-experienceMultiplier = 1.0
+experienceMultiplier = 5.0
 serializer = "JsonPlayerSerializer"
 port = 43594
 connectionLimit = 2
