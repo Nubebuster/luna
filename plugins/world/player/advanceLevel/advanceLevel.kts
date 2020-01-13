@@ -58,7 +58,9 @@ fun advanceLevel(plr: Player, skillId: Int, oldLevel: Int) {
         else
             plr.sendMessage( "Congratulations, you just advanced ${addArticle(skill.name)} level! You are now level " + skill.level + "." )
         plr.graphic(fireworksGraphic)
-        plr.queue(SoundMessageWriter(51))
+        world.scheduleOnce(1) {
+            plr.queue(SoundMessageWriter(51))
+        }
 
         if (Skill.isCombatSkill(skillId)) {
             plr.skills.resetCombatLevel()

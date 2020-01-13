@@ -64,7 +64,9 @@ class CutTreeAction(plr: Player, val axe: Axe, val tree: Tree, val treeObj: Game
             mob.woodcutting.addExperience(tree.exp)
             //mob.animation(axe.animation) moved to getWoodCuttingDelay()
             mob.queue(SoundMessageWriter(2606))
-            //mob.queue(SoundMessageWriter(2582, 1, 500))
+            world.scheduleOnce(1) {
+                mob.queue(SoundMessageWriter(2582))
+            }
         }
 
         if (tree.depletionChance == 1 || rand().nextInt(tree.depletionChance) == 0) {
@@ -119,6 +121,7 @@ class CutTreeAction(plr: Player, val axe: Axe, val tree: Tree, val treeObj: Game
                 mob.animation(axe.animation)
             }
         }
+
         return baseTime
     }
 }
