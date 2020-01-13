@@ -1,29 +1,42 @@
-import api.predef.*
-import io.luna.game.event.impl.MobEvent
+import api.predef.on
+import api.predef.scheduleOnce
+import io.luna.game.event.impl.LogoutEvent
 import io.luna.game.event.impl.NpcClickEvent
-import io.luna.game.model.mob.Mob
-import io.luna.game.model.mob.PlayerInteraction
-import io.luna.game.task.Task
-import io.luna.net.msg.out.NpcUpdateMessageWriter
-import io.luna.net.msg.out.PlayerInteractionMessageWriter
+import io.luna.game.event.impl.NpcDeathEvent
+import io.luna.game.event.impl.PlayerDeathEvent
+import roenstaak.combat.CombatAction
 
+TODO("fix mobs walking and walking. fix weapon stuff. Add prayers etc. do damage calculation")
 
-npc3(81) {
-    world.schedule(1, true) {
-        plr.interact(npc)
+on(NpcClickEvent.NpcThirdClickEvent::class) {
+    var attackable = false
+    for (a in npc.definition.actions)
+        if (a == "Attack")
+            attackable = true
+
+    if (!attackable)
+        return@on
+
+    if (!plr.position.isWithinDistance(npc.position, 2)) {
         plr.walking.walk(plr.position, npc.position)
-        if(npc.health <=0) {
-            it.cancel()
-            println("death")
-        }
-
-        npc.health -= 1
-        //npc.combatDefinition.get().attackAnimation
-        plr.queue(PlayerInteractionMessageWriter(PlayerInteraction.ATTACK))
-        plr.queue(NpcUpdateMessageWriter())
-
+        plr.walking.removeLast()
     }
 
+    plr.submitAction(CombatAction(plr, npc))
+
+    npc.world.scheduleOnce(2) {
+        npc.submitAction(CombatAction(npc, plr))
+    }
 }
 
+on(NpcDeathEvent::class) {
+    CombatAction.last_swing.remove(npc)
+}
 
+on(PlayerDeathEvent::class) {
+    CombatAction.last_swing.remove(plr)
+}
+
+on(LogoutEvent::class) {
+    CombatAction.last_swing.remove(plr)
+}

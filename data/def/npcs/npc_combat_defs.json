@@ -2405,7 +2405,7 @@
     "aggressive?": false,
     "poisonous?": false,
     "level": 22,
-    "hitpoints": -1,
+    "hitpoints": 25,
     "maximum_hit": 4,
     "attack_speed": 7,
     "attack_animation": 260,

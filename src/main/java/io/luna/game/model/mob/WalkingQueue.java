@@ -264,6 +264,14 @@ public final class WalkingQueue {
     }
 
     /**
+     * Clears the current and previous steps.
+     */
+    public void removeLast() {
+        if(current.size() != 0)
+            current.removeLast();
+    }
+
+    /**
      * A function that implements an algorithm to deplete run energy.
      *
      * @return {@code false} if the player can no longer run.

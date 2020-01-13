@@ -265,7 +265,15 @@ public final class NpcCombatDefinition implements Definition {
     public int getDeathAnimation() {
         return deathAnimation;
     }
-    
+
+    /**
+     * @return The bonuses.
+     */
+    public int[] getBonuses() {
+        return bonuses;
+    }
+
+
     /**
      * Gets the skill at the specified identifier.
      *

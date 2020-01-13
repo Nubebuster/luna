@@ -307,7 +307,7 @@ public final class Equipment extends ItemContainer {
     /**
      * An array of equipment bonuses.
      */
-    private final int[] bonuses = new int[12];
+    public final int[] bonuses = new int[12];
 
     /**
      * Creates a new {@link Equipment}.

@@ -1,4 +1,5 @@
 import api.predef.on
+import api.predef.rand
 import api.predef.schedule
 import api.predef.world
 import io.luna.game.event.impl.ServerLaunchEvent
@@ -42,9 +43,12 @@ on(ServerLaunchEvent::class) {
                 cows))
     }
     val cows2 = Area(3242, 3283, 3255, 3298)
+    val goblins = Area(3248, 3230, 3262, 3242)
     for(i in 1..8) {
         npcSpawns.add(NPCSpawn(81, cows2.random(),
                 cows2))
+        npcSpawns.add(NPCSpawn(rand(100, 102), goblins.random(), goblins))
+        npcSpawns.add(NPCSpawn(90, goblins.random(), goblins))//skelletoen
     }
 
     if (npcSpawns.isNotEmpty()) {
