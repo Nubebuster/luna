@@ -89,17 +89,17 @@ public final class GroundItemList extends EntityList<GroundItem> {
                 boolean isTradeable = item.def().isTradeable();
                 int expireMinutes = item.addExpireTick();
                 if (item.isLocal()) {
-                    if (isTradeable && expireMinutes >= TRADEABLE_LOCAL_MINUTES) {
+                    if (isTradeable && expireMinutes >= TRADEABLE_LOCAL_MINUTES * 100) {
                         // Item is tradeable and only visible to one player, make it global.
                         var globalItem = new GroundItem(item.getContext(), item.getId(), item.getAmount(),
                                 item.getPosition(), Optional.empty());
                         unregisterQueue.add(item);
                         registerQueue.add(globalItem);
-                    } else if (!isTradeable && expireMinutes >= UNTRADEABLE_LOCAL_MINUTES) {
+                    } else if (!isTradeable && expireMinutes >= UNTRADEABLE_LOCAL_MINUTES * 100) {
                         // Item is untradeable and only visible to one player, unregister it.
                         unregisterQueue.add(item);
                     }
-                } else if (item.isGlobal() && expireMinutes >= GLOBAL_MINUTES) {
+                } else if (item.isGlobal() && expireMinutes >= GLOBAL_MINUTES * 100) {
                     // Item is visible to everyone, unregister it.
                     unregisterQueue.add(item);
                 }

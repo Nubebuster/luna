@@ -48,7 +48,7 @@ on(ServerLaunchEvent::class) {
         npcSpawns.add(NPCSpawn(81, cows2.random(),
                 cows2))
         npcSpawns.add(NPCSpawn(rand(100, 102), goblins.random(), goblins))
-        npcSpawns.add(NPCSpawn(90, goblins.random(), goblins))//skelletoen
+        npcSpawns.add(NPCSpawn(110, cows2.random(), cows2))//fire giant
     }
 
     if (npcSpawns.isNotEmpty()) {

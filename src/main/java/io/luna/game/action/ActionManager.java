@@ -123,4 +123,8 @@ public final class ActionManager {
     void resetQueued() {
         queued = null;
     }
+
+    public RepeatingAction getCurrentAction() {
+        return repeating;
+    }
 }

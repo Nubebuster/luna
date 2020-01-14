@@ -6,7 +6,7 @@ import io.luna.game.event.impl.NpcDeathEvent
 import io.luna.game.event.impl.PlayerDeathEvent
 import roenstaak.combat.CombatAction
 
-TODO("fix mobs walking and walking. fix weapon stuff. Add prayers etc. do damage calculation")
+//TODO("fix mobs walking and walking. fix weapon stuff. Add prayers etc. elaborate damage calculation")
 
 on(NpcClickEvent.NpcThirdClickEvent::class) {
     var attackable = false

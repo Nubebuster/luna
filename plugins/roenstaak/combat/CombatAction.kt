@@ -3,6 +3,7 @@ package roenstaak.combat
 import api.predef.*
 import io.luna.game.action.Action
 import io.luna.game.action.ConditionalAction
+import io.luna.game.model.EntityState
 import io.luna.game.model.def.NpcCombatDefinition
 import io.luna.game.model.item.Equipment
 import io.luna.game.model.mob.*
@@ -18,6 +19,7 @@ class CombatAction(private val attacker: Mob, private val victim: Mob) : Conditi
     }
 
     override fun start(): Boolean {
+        println("start ")
         if (!attacker.position.isWithinDistance(victim.position, 3)) {
             attacker.walking.walk(attacker.position, victim.position)
             attacker.walking.removeLast()
@@ -30,7 +32,7 @@ class CombatAction(private val attacker: Mob, private val victim: Mob) : Conditi
         if (!victim.isAlive || !attacker.isAlive)
             return false
         if (!attacker.position.isWithinDistance(victim.position, 3)) {
-            if (!attacker.position.isWithinDistance(victim.position, 8)) {
+            if (!attacker.position.isWithinDistance(victim.position, 10)) {
                 return false
             }
             attacker.walking.walk(attacker.position, victim.position)
@@ -46,10 +48,13 @@ class CombatAction(private val attacker: Mob, private val victim: Mob) : Conditi
                     attacker.animation(Animation(attacker.combatDefinition.get().attackAnimation))
                     victim as Player
                     if (victim.settings.isAutoRetaliate) {
-                        if (!victim.interactingWith.isPresent ||
-                                if (victim.interactingWith is Mob) !(victim.interactingWith.get() as Mob).isAlive else true) {
-                            victim.submitAction(CombatAction(victim, attacker))
-                        }
+                        /*if (!victim.interactingWith.isPresent ||
+                                if (victim.interactingWith is Mob) !(victim.interactingWith.get() as Mob).isAlive else true) {*/
+                            if(victim.actions.currentAction == null || victim.actions.currentAction.isInterrupted) {
+                                println("retaliation")
+                                victim.submitAction(CombatAction(victim, attacker))
+                            }
+
                     }
                 }
             }
