@@ -56,7 +56,7 @@ fun advanceLevel(plr: Player, skillId: Int, oldLevel: Int) {
         if(newLevel >=30)
             plr.interfaces.open(LevelUpInterface(skillId, newLevel, levelUpData))
         else
-            plr.sendMessage( "Congratulations, you just advanced ${addArticle(skill.name)} level! You are now level " + skill.level + "." )
+            plr.sendMessage( "Congratulations, you just advanced ${addArticle(skill.name)} level! You are now level " + skill.staticLevel + "." )
         plr.graphic(fireworksGraphic)
         world.scheduleOnce(1) {
             plr.queue(SoundMessageWriter(51))

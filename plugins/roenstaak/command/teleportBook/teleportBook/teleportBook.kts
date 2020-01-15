@@ -18,6 +18,8 @@ on(ItemClickEvent.ItemFirstClickEvent::class) {
                 "Varrock", {teleport(plr, Position(3207, 3429))  },
                 "Falador", { teleport(plr, Position(2964, 3380)) }).open()*/
         plr.queue(InterfaceMessageWriter(18790))
+        plr.sendText("Ardougne",18849 )
+        plr.sendText("Camelot",18845 )
     }
 }
 
@@ -46,6 +48,17 @@ button(18847) {
     plr.queue(CloseWindowsMessageWriter())
 }
 
+button(18849) {
+    teleport(plr, Position(2661, 3305))//Ardougne
+    plr.queue(CloseWindowsMessageWriter())
+
+}
+
+button(18845) {
+    teleport(plr, Position(2725, 3484))//Camelot
+    plr.queue(CloseWindowsMessageWriter())
+
+}
 fun teleport(plr: Player, pos: Position) {
     plr.teleport(pos)
 }
