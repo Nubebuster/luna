@@ -4,6 +4,7 @@ import api.predef.*
 import io.luna.game.event.impl.ItemClickEvent
 import io.luna.game.model.Position
 import io.luna.game.model.item.Item
+import io.luna.game.model.mob.Animation
 import io.luna.game.model.mob.Player
 import io.luna.net.msg.out.CloseWindowsMessageWriter
 import io.luna.net.msg.out.InterfaceMessageWriter
@@ -65,4 +66,8 @@ fun teleport(plr: Player, pos: Position) {
 
 cmd("teleport", RIGHTS_DEV) {
     plr.giveItem(Item(7633))
+}
+
+cmd("ani", RIGHTS_DEV) {
+    plr.animation(Animation(args[0].toInt()))
 }

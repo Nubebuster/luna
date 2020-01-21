@@ -54,7 +54,7 @@ fun advanceLevel(plr: Player, skillId: Int, oldLevel: Int) {
 
         val levelUpData = levelUpTable[skillId]
         if(newLevel >=30)
-            plr.interfaces.open(LevelUpInterface(skillId, newLevel, levelUpData))
+            (LevelUpInterface(skillId, newLevel, levelUpData))
         else
             plr.sendMessage( "Congratulations, you just advanced ${addArticle(skill.name)} level! You are now level " + skill.staticLevel + "." )
         plr.graphic(fireworksGraphic)
