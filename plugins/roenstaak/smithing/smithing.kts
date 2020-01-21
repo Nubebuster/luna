@@ -1,11 +1,12 @@
-import api.predef.button
 import api.predef.object2
 import api.predef.on
 import io.luna.game.event.impl.ButtonClickEvent
 import io.luna.game.event.impl.ObjectClickEvent
+import io.luna.game.model.mob.inter.DialogueInterface
 import io.luna.net.msg.out.CloseWindowsMessageWriter
-import io.luna.net.msg.out.DialogueInterfaceMessageWriter
 import io.luna.net.msg.out.WidgetItemModelMessageWriter
+import roenstaak.smithing.Bar
+import roenstaak.smithing.SmithingAction
 
 
 on(ObjectClickEvent.ObjectSecondClickEvent::class) {
@@ -15,18 +16,21 @@ on(ObjectClickEvent.ObjectThirdClickEvent::class) {
     println("third click " + gameObject.id)
 }
 
-on(ButtonClickEvent::class){
-    when(id) {
-        in 3987..3988 -> {
+on(ButtonClickEvent::class) {
+    Bar.values().forEach {
+        if (it.button == id) {
             plr.queue(CloseWindowsMessageWriter())
-            plr.sendMessage("yeah")
+            plr.submitAction(SmithingAction(plr, it))
+
         }
     }
 }
 
 object2(2781) {
 
-    plr.queue(DialogueInterfaceMessageWriter(2400))
+    plr.interfaces.open(
+            DialogueInterface(2400))
+    //plr.queue(DialogueInterfaceMessageWriter(2400))
     plr.queue(WidgetItemModelMessageWriter(2405, 190, 2349))
     plr.queue(WidgetItemModelMessageWriter(2406, 190, 2351))
     plr.queue(WidgetItemModelMessageWriter(2407, 190, 2355))

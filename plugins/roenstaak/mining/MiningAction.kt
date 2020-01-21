@@ -12,8 +12,8 @@ import io.luna.game.model.item.Item
 import io.luna.game.model.mob.Animation
 import io.luna.game.model.mob.Player
 
-class MiningAction(val player: Player, val rock: GameObject, val ore: Ore, val axe: Pickaxe) : InventoryAction(player, false, 1/* rand(8, 20)*/, 28) {
-
+class MiningAction(val player: Player, val rock: GameObject, val ore: Ore, val axe: Pickaxe) : InventoryAction(player, false,
+        ((ore.speed * 8) / (player.mining.level / 10 + 1)) * (1 / axe.speed).toInt(), 28) {
 
     override fun executeIf(start: Boolean): Boolean {
         if (player.inventory.isFull)
@@ -50,7 +50,6 @@ class MiningAction(val player: Player, val rock: GameObject, val ore: Ore, val a
         val result = (ticks / levelFactor) * (1 / pickModifier)
         return rand(2, 2 + (result.toInt()))
     }
-
 
     override fun ignoreIf(other: Action<*>?): Boolean {
         return false

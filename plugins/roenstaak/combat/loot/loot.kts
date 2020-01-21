@@ -7,8 +7,11 @@ import api.predef.world
 import io.luna.game.event.impl.NpcDeathEvent
 import io.luna.game.model.def.NpcDefinition
 import io.luna.game.model.item.Item
+import io.luna.game.model.mob.Mob
 import io.luna.game.model.mob.Npc
+import io.luna.game.model.mob.Player
 import io.luna.util.Rational
+import roenstaak.combat.CombatAction
 import roenstaak.npcSpawning.NPCSpawn
 
 val rdt = LootTable(listOf(
@@ -39,6 +42,8 @@ val gdt = LootTable(listOf(
         LootTableItem(987, IntRange(1, 1), Rational(1, 128)),//loop half of key
         LootTableItem("Dragon spear",1, Rational(1, 4096))
 ))
+
+
 
 on(NpcDeathEvent::class) {
     when (npc.id) {
@@ -88,7 +93,8 @@ fun doLootDrop(npc: Npc, item: Item?) {
         //if (killer is Player)
         //    npc.world.addItem(item.id, item.amount, npc.position, killer)
         //else
-        npc.world.addItem(item.id, item.amount, npc.position, null)
+        npc.world.addItem(item.id, item.amount, npc.position,
+                CombatAction.lootOwner[npc])
 
         world.players.forEach {
             it.sendMessage("Drop: " + item.amount + " " + item.itemDef.name )

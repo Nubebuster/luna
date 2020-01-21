@@ -20,6 +20,7 @@ class CombatAction(val attacker: Mob, val victim: Mob) : ConditionalAction<Mob>(
 
     companion object {
         val last_swing = HashMap<Mob, Long>()
+        val lootOwner = HashMap<Mob, Player>()
         val attackStyle = HashMap<Player, AttackStyle>()
     }
 
@@ -97,6 +98,11 @@ class CombatAction(val attacker: Mob, val victim: Mob) : ConditionalAction<Mob>(
             }
             world.scheduleOnce(1) {
                 victim.damage(Hit(dmg, if (dmg == 0) Hit.HitType.BLOCKED else Hit.HitType.NORMAL))
+                if (attacker is Player)
+                    if (victim.health == 0) {
+                        attacker as Player
+                        lootOwner[victim] = attacker
+                    }
             }
         }
 
@@ -137,7 +143,7 @@ class CombatAction(val attacker: Mob, val victim: Mob) : ConditionalAction<Mob>(
                 if (rand(100) > hitChance * 100) {
                     return 0
                 }
-                return min(rand(0, ceil(baseDmg).toInt()), victim.health )
+                return min(rand(0, ceil(baseDmg).toInt()), victim.health)
             }
             //NPC attacking player
             is Npc -> {
@@ -155,7 +161,7 @@ class CombatAction(val attacker: Mob, val victim: Mob) : ConditionalAction<Mob>(
                 if (rand(100) > hitChance * 100) {
                     return 0
                 }
-                return min(rand(0, ceil(baseDmg).toInt()), victim.health )
+                return min(rand(0, ceil(baseDmg).toInt()), victim.health)
             }
         }
         throw InvalidParameterException("Parameters should be Player and Npc")
