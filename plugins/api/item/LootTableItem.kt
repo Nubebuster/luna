@@ -28,6 +28,12 @@ class LootTableItem(val id: Int, val amount: IntRange, val chance: Rational) {
             this(computeId(name, noted), amount, chance)
 
     /**
+     * A constructor that takes [name] instead of [id] and uses IntRange(amount, amount).
+     */
+    constructor(name: String, amount: Int, chance: Rational, noted: Boolean = false) :
+            this(computeId(name, noted), IntRange(amount, amount), chance)
+
+    /**
      * Returns this as an item, with a random value within its [amount].
      */
     fun getItem() = Item(id, amount.random())

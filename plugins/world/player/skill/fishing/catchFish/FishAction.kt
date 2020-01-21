@@ -118,6 +118,6 @@ class FishAction(private val msg: NpcClickEvent,
         if (ticksFactor < MINIMUM_TICK_FACTOR) {
             ticksFactor = MINIMUM_TICK_FACTOR
         }
-        return rand(1, ticksFactor)
+        return 5 + rand(1, ticksFactor)
     }
 }

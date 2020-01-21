@@ -1,5 +1,6 @@
 package roenstaak.npcSpawning
 
+import api.item.LootTable
 import api.predef.addNpc
 import api.predef.area
 import api.predef.ctx
@@ -13,14 +14,7 @@ import world.player.skill.fishing.fishingSpot.FishingSpot
  *
  * @author lare96 <http://github.com/lare96>
  */
-class NPCSpawn(id: Int, val spawn: Position, area: Area) : Npc(ctx, id, spawn) {
-
-    val movementArea: Area
-
-    init {
-        movementArea = area
-    }
-
+class NPCSpawn(id: Int, val spawn: Position, val area: Area, val loot: List<LootTable>?) : Npc(ctx, id, spawn) {
 
     companion object {
 

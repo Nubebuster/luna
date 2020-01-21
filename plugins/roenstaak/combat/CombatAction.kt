@@ -9,9 +9,10 @@ import io.luna.game.model.mob.*
 import java.security.InvalidParameterException
 import kotlin.math.ceil
 import kotlin.math.floor
+import kotlin.math.min
 
 
-class CombatAction(private val attacker: Mob, private val victim: Mob) : ConditionalAction<Mob>(attacker, true, 1) {
+class CombatAction(val attacker: Mob, val victim: Mob) : ConditionalAction<Mob>(attacker, true, 1) {
 
     enum class AttackStyle {
         ACCURATE, AGGRESSIVE, DEFENSIVE, CONTROLLED;//TODO there are actually different styles per weapon
@@ -25,6 +26,7 @@ class CombatAction(private val attacker: Mob, private val victim: Mob) : Conditi
     override fun start(): Boolean {
         //println("start ")
         if (!attacker.position.isWithinDistance(victim.position, 3)) {
+            attacker.walking.clear()
             attacker.walking.walk(attacker.position, victim.position)
             attacker.walking.removeLast()
             attacker.walking.removeLast()
@@ -39,6 +41,7 @@ class CombatAction(private val attacker: Mob, private val victim: Mob) : Conditi
             if (!attacker.position.isWithinDistance(victim.position, 10)) {
                 return false
             }
+            attacker.walking.clear()
             attacker.walking.walk(attacker.position, victim.position)
             attacker.walking.removeLast()
             attacker.walking.removeLast()
@@ -134,7 +137,7 @@ class CombatAction(private val attacker: Mob, private val victim: Mob) : Conditi
                 if (rand(100) > hitChance * 100) {
                     return 0
                 }
-                return rand(0, ceil(baseDmg).toInt())
+                return min(rand(0, ceil(baseDmg).toInt()), victim.health )
             }
             //NPC attacking player
             is Npc -> {
@@ -152,7 +155,7 @@ class CombatAction(private val attacker: Mob, private val victim: Mob) : Conditi
                 if (rand(100) > hitChance * 100) {
                     return 0
                 }
-                return rand(0, ceil(baseDmg).toInt())
+                return min(rand(0, ceil(baseDmg).toInt()), victim.health )
             }
         }
         throw InvalidParameterException("Parameters should be Player and Npc")
