@@ -9,11 +9,8 @@ import io.luna.game.model.`object`.ObjectType
 import io.luna.game.model.item.Item
 import io.luna.game.model.mob.Animation
 import io.luna.game.model.mob.Player
-import io.luna.net.msg.GameMessageWriter
 import io.luna.net.msg.out.SoundMessageWriter
-import io.luna.util.ExecutorUtils
 import world.player.skill.woodcutting.searchNest.Nest
-import java.util.*
 
 /**
  * An [InventoryAction] that will enable the cutting of trees.
@@ -43,7 +40,9 @@ class CutTreeAction(plr: Player, val axe: Axe, val tree: Tree, val treeObj: Game
         // Check if tree isn't already cut and if we still have an axe.
         treeObj.state == EntityState.INACTIVE || !Axe.hasAxe(mob, axe) -> false
         else -> {
-            mob.animation(axe.animation)
+            world.scheduleOnce(1) {
+                mob.animation(axe.animation)
+            }
             if (start) {
                 mob.sendMessage("You swing your axe at the tree...")
                 delay = getWoodcuttingDelay()
@@ -80,10 +79,10 @@ class CutTreeAction(plr: Player, val axe: Axe, val tree: Tree, val treeObj: Game
     override fun stop() = mob.animation(Animation.CANCEL)
 
     override fun ignoreIf(other: Action<*>?) =
-        when (other) {
-            is CutTreeAction -> treeObj == other.treeObj
-            else -> false
-        }
+            when (other) {
+                is CutTreeAction -> treeObj == other.treeObj
+                else -> false
+            }
 
     private fun deleteAndRespawnTree() {
         if (world.removeObject(treeObj)) {
@@ -106,7 +105,7 @@ class CutTreeAction(plr: Player, val axe: Axe, val tree: Tree, val treeObj: Game
             val wcLvlFactor = mob.woodcutting.level / 8
             baseTime -= (wcLvlFactor - treeLvlFactor)
         }
-        if(baseTime < 1) {
+        if (baseTime < 1) {
             baseTime = 1
         }
         if (baseTime > BASE_CUT_RATE) {
@@ -115,7 +114,7 @@ class CutTreeAction(plr: Player, val axe: Axe, val tree: Tree, val treeObj: Game
 
         val end = System.currentTimeMillis() + baseTime * 1000
         world.schedule(6) {
-            if(super.isInterrupted() || System.currentTimeMillis() > end) {
+            if (super.isInterrupted() || System.currentTimeMillis() > end) {
                 it.cancel()
             } else {
                 mob.animation(axe.animation)

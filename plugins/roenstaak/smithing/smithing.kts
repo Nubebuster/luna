@@ -28,9 +28,7 @@ on(ButtonClickEvent::class) {
 
 object2(2781) {
 
-    plr.interfaces.open(
-            DialogueInterface(2400))
-    //plr.queue(DialogueInterfaceMessageWriter(2400))
+    plr.interfaces.open(DialogueInterface(2400))
     plr.queue(WidgetItemModelMessageWriter(2405, 190, 2349))
     plr.queue(WidgetItemModelMessageWriter(2406, 190, 2351))
     plr.queue(WidgetItemModelMessageWriter(2407, 190, 2355))
